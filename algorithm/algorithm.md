@@ -54,3 +54,5 @@
 - When reset button is triggered, clear the board
 
 ## Flowchart
+
+![Algorithm flowchart](algorithm.drawio.png)
