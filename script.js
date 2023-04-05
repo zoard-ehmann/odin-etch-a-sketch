@@ -7,19 +7,31 @@
     return new Date().getFullYear();
   }
 
-  function getColorCode() {
+  function getRGBComponent() {
     return Math.floor(Math.random() * 255);
   }
 
-  function getRandomColor() {
-    return `rgba(${getColorCode()}, ${getColorCode()}, ${getColorCode()}, 0.0)`;
-  }
+  function setColor(e) {
+    const currentColor = e.target.style.backgroundColor;
+    const lightness = e.target.getAttribute("data-lightness");
+    const newLightness = lightness - 0.1;
+    let newColor;
 
-  function increaseOpacity(color) {
-    if (color.includes("rgba")) {
-      let opacity = color.split(",")[3].replace(")", "");
-      return color.replace(opacity, +opacity + 0.1);
+    e.target.setAttribute("data-lightness", newLightness);
+
+    if (currentColor === "") {
+      newColor = `rgb(${getRGBComponent()}, ${getRGBComponent()}, ${getRGBComponent()})`;
+    } else {
+      const re = /(rgb\()|\ |\)/g;
+      const rgbCode = currentColor.replace(re, "").split(",");
+      const r = +rgbCode[0] * newLightness;
+      const g = +rgbCode[1] * newLightness;
+      const b = +rgbCode[2] * newLightness;
+
+      newColor = `rgb(${r}, ${g}, ${b})`;
     }
+
+    e.target.style.backgroundColor = newColor;
   }
 
   // INFO: UI related functions
@@ -34,19 +46,16 @@
 
       for (let c = 0; c < squares; c++) {
         const square = document.createElement("div");
+
+        square.setAttribute("data-lightness", "1");
         square.classList.add("grid__square");
+
         square.style.width = squareSize;
         square.style.height = squareSize;
-        row.appendChild(square);
-        square.addEventListener("mouseover", (e) => {
-          let currentColor = e.target.style.backgroundColor;
 
-          if (currentColor === "") {
-            e.target.style.backgroundColor = increaseOpacity(getRandomColor());
-          } else {
-            e.target.style.backgroundColor = increaseOpacity(currentColor);
-          }
-        });
+        row.appendChild(square);
+
+        square.addEventListener("mouseover", setColor);
       }
 
       gridContainer.appendChild(row);
