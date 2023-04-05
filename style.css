@@ -10,12 +10,40 @@ html {
   box-sizing: inherit;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   text-align: center;
+  background-color: rgb(39, 60, 71);
+  color: white;
+  font-family: "Atma", cursive;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+h1 {
+  margin: 32px 0;
+  font-weight: 700;
+  font-size: 6rem;
+}
+
+button {
+  font-family: "Atma", cursive;
+  font-size: 1.5rem;
+  padding: 8px 16px;
+  margin: 0 16px 32px;
 }
 
 .grid {
   margin: 0 auto;
+  background-color: white;
 }
 
 .grid__row {
@@ -24,4 +52,9 @@ body {
 
 .grid__square {
   border: 1px solid #cacaca;
+}
+
+.copyright {
+  color: #cacaca;
+  margin: 32px 0;
 }

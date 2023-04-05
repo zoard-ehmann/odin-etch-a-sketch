@@ -1,8 +1,12 @@
 "use strict";
 
-const GRID_SIZE = 700;
+const GRID_SIZE = 600;
 
 (function () {
+  function getCurrentYear() {
+    return new Date().getFullYear();
+  }
+
   const gridContainer = document.querySelector(".grid");
   gridContainer.style.width = `${GRID_SIZE}px`;
   gridContainer.style.height = `${GRID_SIZE}px`;
@@ -24,4 +28,7 @@ const GRID_SIZE = 700;
 
     gridContainer.appendChild(row);
   }
+
+  const copyright = document.querySelector(".copyright");
+  copyright.textContent = `${copyright.textContent} ${getCurrentYear()}`;
 })();
