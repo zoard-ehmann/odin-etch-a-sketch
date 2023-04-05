@@ -1,9 +1,13 @@
 "use strict";
 
 (function () {
+  // INFO: helper functions
+
   function getCurrentYear() {
     return new Date().getFullYear();
   }
+
+  // INFO: UI related functions
 
   function createGrid(squares) {
     const gridContainer = document.querySelector(".grid");
@@ -25,18 +29,33 @@
     }
   }
 
+  function resetGrid() {
+    const gridContainer = document.querySelector(".grid");
+    const gridRows = document.querySelectorAll(".grid__row");
+
+    gridRows.forEach((row) => {
+      gridContainer.removeChild(row);
+    });
+  }
+
   const setGridBtn = document.querySelector("#set-grid");
   const copyright = document.querySelector(".copyright");
 
   copyright.textContent = `${copyright.textContent} ${getCurrentYear()}`;
 
+  // INFO: button functions
+
   setGridBtn.addEventListener("click", () => {
     let gridSize;
+
+    resetGrid();
+
     while (isNaN(gridSize) || gridSize <= 0 || gridSize > 100) {
       gridSize = prompt(
         "Please specify grid size in squares per side (max 100)."
       );
     }
+
     createGrid(gridSize);
   });
 })();
