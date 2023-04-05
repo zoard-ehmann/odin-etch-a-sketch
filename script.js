@@ -36,9 +36,12 @@
     gridRows.forEach((row) => {
       gridContainer.removeChild(row);
     });
+
+    return gridRows.length;
   }
 
   const setGridBtn = document.querySelector("#set-grid");
+  const clearBtn = document.querySelector("#clear");
   const copyright = document.querySelector(".copyright");
 
   copyright.textContent = `${copyright.textContent} ${getCurrentYear()}`;
@@ -47,15 +50,19 @@
 
   setGridBtn.addEventListener("click", () => {
     let gridSize;
-
-    resetGrid();
+    let previousGrid = resetGrid();
 
     while (isNaN(gridSize) || gridSize <= 0 || gridSize > 100) {
       gridSize = prompt(
-        "Please specify grid size in squares per side (max 100)."
+        "Please specify grid size in squares per side (max 100).",
+        previousGrid
       );
     }
 
     createGrid(gridSize);
+  });
+
+  clearBtn.addEventListener("click", () => {
+    createGrid(resetGrid());
   });
 })();
