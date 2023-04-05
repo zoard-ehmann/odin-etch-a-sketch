@@ -9,3 +9,19 @@ html {
 *::after {
   box-sizing: inherit;
 }
+
+body {
+  text-align: center;
+}
+
+.grid {
+  margin: 0 auto;
+}
+
+.grid__row {
+  display: flex;
+}
+
+.grid__square {
+  border: 1px solid #cacaca;
+}
