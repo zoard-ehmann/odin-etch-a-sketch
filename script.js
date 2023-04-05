@@ -25,8 +25,18 @@
     }
   }
 
+  const setGridBtn = document.querySelector("#set-grid");
   const copyright = document.querySelector(".copyright");
 
   copyright.textContent = `${copyright.textContent} ${getCurrentYear()}`;
-  createGrid(20);
+
+  setGridBtn.addEventListener("click", () => {
+    let gridSize;
+    while (isNaN(gridSize) || gridSize <= 0 || gridSize > 100) {
+      gridSize = prompt(
+        "Please specify grid size in squares per side (max 100)."
+      );
+    }
+    createGrid(gridSize);
+  });
 })();
