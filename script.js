@@ -12,7 +12,14 @@
   }
 
   function getRandomColor() {
-    return `rgb(${getColorCode()}, ${getColorCode()}, ${getColorCode()})`;
+    return `rgba(${getColorCode()}, ${getColorCode()}, ${getColorCode()}, 0.0)`;
+  }
+
+  function increaseOpacity(color) {
+    if (color.includes("rgba")) {
+      let opacity = color.split(",")[3].replace(")", "");
+      return color.replace(opacity, +opacity + 0.1);
+    }
   }
 
   // INFO: UI related functions
@@ -32,7 +39,13 @@
         square.style.height = squareSize;
         row.appendChild(square);
         square.addEventListener("mouseover", (e) => {
-          e.target.style.backgroundColor = getRandomColor();
+          let currentColor = e.target.style.backgroundColor;
+
+          if (currentColor === "") {
+            e.target.style.backgroundColor = increaseOpacity(getRandomColor());
+          } else {
+            e.target.style.backgroundColor = increaseOpacity(currentColor);
+          }
         });
       }
 
