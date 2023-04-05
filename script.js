@@ -40,11 +40,14 @@
     return gridRows.length;
   }
 
+  // INFO: main entry point
+
   const setGridBtn = document.querySelector("#set-grid");
   const clearBtn = document.querySelector("#clear");
   const copyright = document.querySelector(".copyright");
 
   copyright.textContent = `${copyright.textContent} ${getCurrentYear()}`;
+  createGrid(16);
 
   // INFO: button functions
 
