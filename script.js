@@ -7,6 +7,14 @@
     return new Date().getFullYear();
   }
 
+  function getColorCode() {
+    return Math.floor(Math.random() * 255);
+  }
+
+  function getRandomColor() {
+    return `rgb(${getColorCode()}, ${getColorCode()}, ${getColorCode()})`;
+  }
+
   // INFO: UI related functions
 
   function createGrid(squares) {
@@ -24,7 +32,7 @@
         square.style.height = squareSize;
         row.appendChild(square);
         square.addEventListener("mouseover", (e) => {
-          e.target.style.backgroundColor = "black";
+          e.target.style.backgroundColor = getRandomColor();
         });
       }
 
