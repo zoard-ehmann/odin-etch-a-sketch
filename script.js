@@ -23,6 +23,9 @@
         square.style.width = squareSize;
         square.style.height = squareSize;
         row.appendChild(square);
+        square.addEventListener("mouseover", (e) => {
+          e.target.style.backgroundColor = "black";
+        });
       }
 
       gridContainer.appendChild(row);
