@@ -1,6 +1,37 @@
 "use strict";
 
 (function () {
+  // INFO: classes
+
+  class Square {
+    constructor(size) {
+      this.body = document.createElement("div");
+      this.body.classList.add("grid__square");
+      this.body.style.width = size;
+      this.body.style.height = size;
+      this.lightness = 1;
+    }
+
+    setColor() {
+      this.color = {
+        red: getRGBComponent(),
+        green: getRGBComponent(),
+        blue: getRGBComponent(),
+      };
+    }
+
+    setLightness(ln) {
+      this.lightness = ln;
+    }
+
+    updateColor() {
+      const red = this.color.red * this.lightness;
+      const green = this.color.green * this.lightness;
+      const blue = this.color.blue * this.lightness;
+      this.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+    }
+  }
+
   // INFO: helper functions
 
   function getCurrentYear() {
@@ -11,29 +42,6 @@
     return Math.floor(Math.random() * 255);
   }
 
-  function setColor(e) {
-    const currentColor = e.target.style.backgroundColor;
-    const lightness = e.target.getAttribute("data-lightness");
-    const newLightness = lightness - 0.1;
-    let newColor;
-
-    e.target.setAttribute("data-lightness", newLightness);
-
-    if (currentColor === "") {
-      newColor = `rgb(${getRGBComponent()}, ${getRGBComponent()}, ${getRGBComponent()})`;
-    } else {
-      const re = /(rgb\()|\ |\)/g;
-      const rgbCode = currentColor.replace(re, "").split(",");
-      const r = +rgbCode[0] * newLightness;
-      const g = +rgbCode[1] * newLightness;
-      const b = +rgbCode[2] * newLightness;
-
-      newColor = `rgb(${r}, ${g}, ${b})`;
-    }
-
-    e.target.style.backgroundColor = newColor;
-  }
-
   // INFO: UI related functions
 
   function createGrid(squares) {
@@ -42,20 +50,23 @@
 
     for (let r = 0; r < squares; r++) {
       const row = document.createElement("div");
+
       row.classList.add("grid__row");
 
       for (let c = 0; c < squares; c++) {
-        const square = document.createElement("div");
+        const squareObj = new Square(squareSize);
+        const squareEl = squareObj.body;
 
-        square.setAttribute("data-lightness", "1");
-        square.classList.add("grid__square");
+        row.appendChild(squareEl);
 
-        square.style.width = squareSize;
-        square.style.height = squareSize;
+        squareEl.addEventListener("mouseover", () => {
+          if (squareObj.lightness === 1) squareObj.setColor();
 
-        row.appendChild(square);
-
-        square.addEventListener("mouseover", setColor);
+          if (squareObj.lightness > 0) {
+            squareObj.updateColor();
+            squareObj.setLightness(squareObj.lightness - 0.1);
+          }
+        });
       }
 
       gridContainer.appendChild(row);
