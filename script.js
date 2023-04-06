@@ -96,14 +96,15 @@
   // INFO: button functions
 
   setGridBtn.addEventListener("click", () => {
+    const previousGrid = resetGrid();
     let gridSize;
-    let previousGrid = resetGrid();
 
     while (isNaN(gridSize) || gridSize <= 0 || gridSize > 100) {
       gridSize = prompt(
         "Please specify grid size in squares per side (max 100).",
         previousGrid
       );
+      if (gridSize === null) gridSize = previousGrid;
     }
 
     createGrid(gridSize);
